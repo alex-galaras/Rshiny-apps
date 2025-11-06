@@ -99,9 +99,16 @@ ui <- fluidPage(
     
     mainPanel(
       tabsetPanel(
+        # ---- Up/Down tables with downloads ----
         tabPanel("Up/Down Tables",
-                 h4("Upregulated Genes"), DTOutput("up_table"),
-                 h4("Downregulated Genes"), DTOutput("down_table")),
+                 h4("Upregulated Genes"),
+                 downloadButton("download_up_table", "Download Upregulated Table (CSV)", class = "btn-success"),
+                 DTOutput("up_table"),
+                 tags$hr(),
+                 
+                 h4("Downregulated Genes"),
+                 downloadButton("download_down_table", "Download Downregulated Table (CSV)", class = "btn-danger"),
+                 DTOutput("down_table")),
         
         tabPanel("GO Enrichment Plots",
                  h4("Upregulated GO Results"),
@@ -156,6 +163,27 @@ server <- function(input, output) {
     req(filteredData())
     datatable(filteredData()$Down, options = list(scrollX = TRUE))
   })
+  
+  # --- Download handlers for up/down tables ---
+  output$download_up_table <- downloadHandler(
+    filename = function() {
+      paste0("Upregulated_Genes_", Sys.Date(), ".csv")
+    },
+    content = function(file) {
+      req(filteredData())
+      write.csv(filteredData()$Up, file, row.names = FALSE)
+    }
+  )
+  
+  output$download_down_table <- downloadHandler(
+    filename = function() {
+      paste0("Downregulated_Genes_", Sys.Date(), ".csv")
+    },
+    content = function(file) {
+      req(filteredData())
+      write.csv(filteredData()$Down, file, row.names = FALSE)
+    }
+  )
   
   # --- Select organism ---
   getOrgDb <- reactive({
@@ -239,12 +267,6 @@ server <- function(input, output) {
   })
   
   # --- PNG Download Handlers ---
-  plot_to_png <- function(plot_expr) {
-    tmp <- tempfile(fileext = ".png")
-    ggsave(tmp, plot = plot_expr, width = 8, height = 6, dpi = 300)
-    tmp
-  }
-  
   output$download_up_dot <- downloadHandler(
     filename = function() paste0("Up_GO_", input$ont, "_dotplot.png"),
     content = function(file) {
