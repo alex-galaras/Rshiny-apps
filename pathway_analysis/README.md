@@ -44,4 +44,4 @@ This Shiny application enables pathway analysis of gene expression datasets, usi
 
 ## Data Input
 
-Upload a gene expression file (txt or csv format) containing the headers 'gene	log2FC	Stat'. The Star column can contain either pvalue or FDR based on your preference.
+Upload a gene expression file (txt or csv format) containing the headers 'gene	log2FC	Stat'. The Stat column can contain either pvalue or FDR based on your preference.
