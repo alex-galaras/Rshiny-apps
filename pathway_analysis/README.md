@@ -1,9 +1,8 @@
 # Pathway Analysis Shiny App  
 **Repository:** `pathway_analysis` (part of `Rshiny-apps` by Alex Galaras)  
 **Version:** 1.0.0  
-**Date:** YYYY-MM-DD  
-**Author:** Alex Galaras  
-**License:** [specify license, e.g., MIT]
+**Date:** 2025-11-06  
+**Author:** Alexandros Galaras  
 
 ---
 
@@ -13,7 +12,8 @@
 3. [Getting Started](#getting-started)  
    - [Prerequisites](#prerequisites)  
    - [Installation](#installation)  
-   - [Running the App](#running-the-app)  
+   - [Running the App](#running-the-app)
+4. [Getting Started](#getting-started) 
 
 ## Overview  
 This Shiny application enables pathway analysis of gene expression datasets, using ClusterProfiler, ultimately providing an interactive interface for uploading data, and pathway visualization for both upregulated & downregulated genes.
@@ -41,3 +41,7 @@ This Shiny application enables pathway analysis of gene expression datasets, usi
    ```bash
    git clone https://github.com/alex-galaras/Rshiny-apps.git
    cd Rshiny-apps/pathway_analysis
+
+## Data Input
+
+Upload a gene expression file (txt or csv format) containing the headers 'gene	log2FC	Stat'. The Star column can contain either pvalue or FDR based on your preference.
